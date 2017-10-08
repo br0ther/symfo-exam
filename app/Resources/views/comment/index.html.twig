@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% dump(comments) %}
+
+{% block body %}
+    {% include "comment/list.html.twig" with comments %}
+{% endblock %}

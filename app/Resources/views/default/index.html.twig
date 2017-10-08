@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1><span>Welcome to</span> Symfony {{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION') }}</h1>
+            </div>
+            <h3>
+                <ul>
+                    <li><a href="/{{ url('user_index',[],true) }}">Users</a></li>
+                    <li><a href="/{{ url('article_index',[], true) }}">Articles</a></li>
+                    <li><a href="/{{ url('comment_index',[], true) }}">Comments</a></li>
+                </ul>
+            </h3>
+        </div>
+    </div>
+{% endblock %}
