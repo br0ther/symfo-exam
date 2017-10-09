@@ -2,10 +2,14 @@
 # https://symfony.com/doc/current/security.html
 security:
 
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: bcrypt
+
     providers:
-        in_memory:
-            memory: ~
+        db_provider:
+            entity:
+                class: AppBundle:User
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -15,10 +19,28 @@ security:
 
         main:
             anonymous: ~
-            # activate different ways to authenticate
+            pattern:    ^/
+#            http_basic: ~
+#            provider: our_db_provider
+            guard:
+                authenticators:
+                    - guard_authenticator
+            logout:
+                path:   /logout
+                target: /
 
+            remember_me:
+                name: REMEMBERBRO
+                secret:   '%secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
             #http_basic: ~
 
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+#            form_login:
+#                login_path: login
+#                check_path: login
+#
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_USER }

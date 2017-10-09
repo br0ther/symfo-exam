@@ -33,3 +33,7 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    guard_authenticator:
+        class: AppBundle\Security\GuardAuthenticator
+        arguments: ['@security.user_password_encoder.generic', '@router']

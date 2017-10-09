@@ -7,7 +7,12 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block header %}<a href="/{{ url('homepage',[],true) }}">Home</a>{% endblock %}
+        {% block header %}
+            {% if app.user %}
+                <a href="/{{ url('homepage',[],true) }}">Home</a>
+                <a href="/{{ url('logout',[],true) }}">Logout</a>
+            {% endif %}
+        {% endblock %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
