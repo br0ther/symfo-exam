@@ -1,3 +1,8 @@
+bro_async:
+    resource: "@BroAsyncBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation

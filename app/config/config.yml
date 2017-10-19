@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@BroAsyncBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -64,6 +65,28 @@ doctrine:
 swiftmailer:
     transport: '%mailer_transport%'
     host: '%mailer_host%'
+    port:                     "%mailer_port%"
+    encryption:               "%mailer_encryption%"
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host:     'localhost'
+            port:     5672
+            user:     'guest'
+            password: 'guest'
+            vhost:    '/'
+            lazy:     false
+    producers:
+        brother_mailer:
+            connection:             default
+            exchange_options:       { name: 'brother_mailer_exchange', type: direct }
+    consumers:
+        brother_mailer:
+            connection:             default
+            exchange_options:       { name: 'brother_mailer_exchange', type: direct }
+            queue_options:          { name: 'brother_mailer_exchange' }
+            callback:               bro_async.async.mailer_consumer

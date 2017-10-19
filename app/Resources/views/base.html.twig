@@ -10,6 +10,7 @@
         {% block header %}
             {% if app.user %}
                 <a href="/{{ url('homepage',[],true) }}">Home</a>
+                <a href="/{{ url('bro_async_download',[],true) }}">Send email</a>
                 <a href="/{{ url('logout',[],true) }}">Logout</a>
             {% endif %}
         {% endblock %}

@@ -1,0 +1,13 @@
+services:
+#    bro_async.example:
+#        class: Bro\AsyncBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    bro_async.async.mailer_producer:
+        class: Bro\AsyncBundle\Async\MailerProducer
+        arguments: ['brotherrrr@gmail.com', '@old_sound_rabbit_mq.brother_mailer_producer']
+
+    bro_async.async.mailer_consumer:
+       class: Bro\AsyncBundle\Async\MailerConsumer
+       arguments: ['@mailer', '@templating.engine.twig', '@logger']
+
+
