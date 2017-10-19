@@ -1,4 +1,9 @@
-symfo-exam
+Own playing with different Symfony 3 stuff
 ==========
 
-A Symfony project created on October 3, 2017, 12:13 am.
+Implemented:
+- CRUDs for User, Article, Comments
+- login system based on GuardAuthenticator User credentials
+- AsyncBundle with producer & consumer. It sends test email using RabbitMQ.
+Not forget to run command `bin/console rabbitmq:consumer brother_mailer`
+
