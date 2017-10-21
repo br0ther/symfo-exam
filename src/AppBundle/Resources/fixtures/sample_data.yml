@@ -1,0 +1,19 @@
+AppBundle\Entity\User:
+    user_{1..500}:
+        username: <username()>
+        email: <email()>
+        firstName: <firstname()>
+        lastName: <lastname()>
+        password: <password()>
+
+AppBundle\Entity\Comment:
+    comment_{1..1000}:
+        user: '@user_*'
+        name: <realText(255)>
+
+AppBundle\Entity\Article:
+    comment_{1..300}:
+        user: '@user_*'
+        name (unique): <realText(55)>
+        content: <realText(255)>
+        picture: <image('/var/www/symfo-exam/web/upload')>

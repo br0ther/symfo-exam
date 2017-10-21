@@ -6,4 +6,4 @@ Implemented:
 - login system based on GuardAuthenticator User credentials
 - AsyncBundle with producer & consumer. It sends test email using RabbitMQ.
 Not forget to run command `bin/console rabbitmq:consumer brother_mailer`
-
+- Fixtures to load. Just run command `bin/console hautelook:fixtures:load `
