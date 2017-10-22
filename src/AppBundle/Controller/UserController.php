@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use APY\DataGridBundle\Grid\Action\RowAction;
+use APY\DataGridBundle\Grid\Source\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -23,13 +25,20 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $source = new Entity('AppBundle:User');
 
-        $users = $em->getRepository('AppBundle:User')->findAll();
+        $grid = $this->get('grid');
 
-        return $this->render('user/index.html.twig', array(
-            'users' => $users,
-        ));
+        $rowAction = new RowAction('Show', 'user_show');
+        $rowAction2 = new RowAction('Edit', 'user_edit');
+        $grid->addRowAction($rowAction);
+        $grid->addRowAction($rowAction2);
+
+        // Attach the source to the grid
+        $grid->setSource($source);
+
+        // Return the response of the grid to the template
+        return $grid->getGridResponse('user/grid.html.twig');
     }
 
     /**

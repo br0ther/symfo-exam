@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             $bundles[] = new Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle();
             $bundles[] = new Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle();
             $bundles[] = new Hautelook\AliceBundle\HautelookAliceBundle();
+            $bundles[] = new APY\DataGridBundle\APYDataGridBundle();
 
             if ('dev' === $this->getEnvironment()) {
                 $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
