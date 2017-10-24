@@ -3,18 +3,26 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+            <link rel="stylesheet" href="{{ asset('build/global.css') }}">
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
         {% block header %}
             {% if app.user %}
-                <a href="/{{ url('homepage',[],true) }}">Home</a>
-                <a href="/{{ url('bro_async_download',[],true) }}">Send email</a>
-                <a href="/{{ url('logout',[],true) }}">Logout</a>
+                <div id="navcontainer">
+                    <ul id="navlist">
+                        <li><a href="/{{ url('homepage',[],true) }}">Home</a></li>
+                        <li><a href="/{{ url('bro_mail_produce',[],true) }}">Send email via Rabbit</a></li>
+                        <li><a href="/{{ url('bro_mail_direct',[],true) }}">Send direct email</a></li>
+                        <li><a href="/{{ url('logout',[],true) }}">Logout</a></li>
+                    </ul>
+                </div>
             {% endif %}
         {% endblock %}
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}<script src="{{ asset('build/app.js') }}"></script>{% endblock %}
     </body>
 </html>
