@@ -141,6 +141,14 @@ class User implements UserInterface, \Serializable
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
+    /**
      * @param User $friend
      *
      * @return $this

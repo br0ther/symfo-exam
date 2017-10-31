@@ -22,7 +22,15 @@
                 </div>
             {% endif %}
         {% endblock %}
-        {% block body %}{% endblock %}
+        {% block flash %}
+            {% for msg in app.session.flashBag.get('success') %}
+                <div class="alert alert-success">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+        {% endblock %}
+        {% block body %}
+        {% endblock %}
         {% block javascripts %}<script src="{{ asset('build/app.js') }}"></script>{% endblock %}
     </body>
 </html>

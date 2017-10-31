@@ -50,10 +50,6 @@ class GuardAuthenticator extends AbstractGuardAuthenticator
             return null;
         }
 
-//        if (password_hash($credentials['password'], PASSWORD_DEFAULT) != $user->getPassword()) {
-//            return null;
-//        }
-
         return true;
     }
 

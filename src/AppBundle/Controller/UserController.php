@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * User controller.
@@ -54,6 +55,8 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword($this->setPasswordForUser($user, $user->getPassword()));
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -96,9 +99,12 @@ class UserController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $user->setPassword($this->setPasswordForUser($user, $user->getPassword()));
 
-            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'User saved');
+
+            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
         }
 
         return $this->render('user/edit.html.twig', array(
@@ -142,5 +148,19 @@ class UserController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     * @param User $user
+     * @param string $password
+     *
+     * @return string
+     */
+    private function setPasswordForUser(User $user, string $password) : string
+    {
+        /** @var UserPasswordEncoderInterface $encoder */
+        $encoder = $this->get('security.password_encoder');
+
+        return $encoder->encodePassword($user, $password);
     }
 }

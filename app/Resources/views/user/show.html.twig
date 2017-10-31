@@ -18,17 +18,20 @@
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
+                <th>First Name</th>
                 <td>{{ user.firstName }}</td>
             </tr>
             <tr>
-                <th>Lastname</th>
+                <th>Last Name</th>
                 <td>{{ user.lastName }}</td>
             </tr>
+            <tr>
+                <th>Friends</th>
+                <td>{% for friend in user.friends %}
+                        {{ friend }}
+                    {% endfor %}</td>
+            </tr>
+
         </tbody>
     </table>
 
